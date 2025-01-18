@@ -1,12 +1,473 @@
 
 \documentclass[12pt]{article}
 
+\usepackage{amssymb}
 \usepackage{amsmath}
+\usepackage{amsthm}
+
+\usepackage{graphicx}
+
+\usepackage{hyperref}
+\usepackage{mdframed}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows,shapes,positioning,shadows,trees}
+
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+
+\newcommand{\sech}{\operatorname{sech}}
+\newcommand{\csch}{\operatorname{csch}}
+
+
+\title{Calculus Final - Cheat Sheet}
+\date{January 2025}
+\author{Sigurdur Haukur Birgisson \& Efe Ozbal}
+
 
 \begin{document}
 
-\title{Hello}
 
 \maketitle
+
+\section{Basic Math Skills}
+
+\vspace{1cm}
+
+\noindent
+\begin{minipage}[t]{0.45\textwidth}
+  \subsection*{Simplifying Expressions}
+  \begin{align}
+    (a+b)^2 &= a^2 + 2ab + b^2 \\
+    (a-b)^2 &= a^2 - 2ab + b^2 \\
+    (a+b)(a-b) &= a^2 - b^2
+  \end{align}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+  \subsection*{Binomial Theorem}
+  \begin{align}
+    (x+y)^n &= \sum_{k=0}^{n} \binom{n}{k} x^{n-k} y^k
+  \end{align}
+
+  \begin{equation}
+    \binom{n}{k} = \frac{n!}{k!(n-k)!}
+  \end{equation}
+\end{minipage}
+
+\subsection*{Annoying Inequalities}
+
+\begin{align}
+  |x| &\leq a \iff -a \leq x \leq a \\
+  |x| &\geq a \iff x \leq -a \text{ or } x \geq a
+\end{align}
+
+\begin{align}
+    (a + b)^2 - (a + b) &\geq 0 \\
+  \implies (a + b - 1)(a + b) &\geq 0
+\end{align}
+
+
+\vspace{1cm}
+
+\noindent
+\begin{minipage}[t]{0.45\textwidth}
+  \subsection*{Exponents}
+  \begin{align}
+    a^0 &= 1 \\
+    a^m a^n &= a^{m+n} \\
+    (a^m)^n &= a^{mn} \\
+    (ab)^n &= a^n b^n
+  \end{align}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+  \subsection*{Logarithms}
+  \begin{align}
+    \log_a b &= c \iff a^c = b \\
+    \log_a b + \log_a c &= \log_a bc \\
+    \log_a b - \log_a c &= \log_a \frac{b}{c} \\
+    \log_a b^n &= n \log_a b
+  \end{align}
+\end{minipage}
+
+
+\subsection*{Complex Numbers}
+
+\noindent
+\begin{minipage}[t]{0.45\textwidth}
+\textbf{cartesian form:} $z = a + bi$
+\vspace{0.5cm}
+
+Convert to polar form:
+\begin{align}
+  r &= \sqrt{a^2 + b^2} \\
+  \theta &= \arctan \left( \frac{b}{a} \right) \\
+  z &= r(\cos \theta + i \sin \theta) \\
+    &= (r, \theta) \quad \text{polar coordinates}
+\end{align}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+\textbf{Polar Form:} $z = r(\cos \theta + i \sin \theta)$
+\vspace{0.5cm}
+
+Convert to cartesian form:
+\begin{align}
+  a &= r \cos \theta \\
+  b &= r \sin \theta \\
+  z &= a + bi
+\end{align}
+\end{minipage}
+\vspace{0.5cm}
+
+\textbf{Euler's Formula:}
+\begin{equation}
+  e^{i\theta} = \cos \theta + i \sin \theta
+\end{equation}
+
+\textbf{De Moivre's Theorem:}
+\begin{equation}
+  z^n = (r(\cos \theta + i \sin \theta))^n = r^n (\cos n\theta + i \sin n\theta)
+\end{equation}
+
+\textbf{Roots of Unity:}
+\begin{equation}
+  z^n = 1 \implies z = e^{2\pi i k / n} \quad \text{for } k = 0, 1, 2, \ldots, n-1
+\end{equation}
+
+\subsection*{nth Roots of a Complex Number}
+
+Given a complex number $z = r(\cos \theta + i \sin \theta)$, the $n$th roots are:
+
+\begin{equation}
+  \sqrt[n]{z} = \sqrt[n]{r} \left( \cos \left( \frac{\theta + 2\pi k}{n} \right) + i \sin \left( \frac{\theta + 2\pi k}{n} \right) \right) \quad \text{for } k = 0, 1, 2, \ldots, n-1
+\end{equation}
+
+
+\section{Trigonometry}
+
+\textbf{SOH-CAH-TOA}
+
+\subsection*{Table of Basic Trigonometric Values}
+
+
+\begin{table}[h]
+  \centering
+  \renewcommand{\arraystretch}{2}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+  \hline
+  $\theta$ & $\sin \theta$ & $\cos \theta$ & $\tan \theta$ & $\cot \theta$ & $\sec \theta$ & $\csc \theta$ \\
+  \hline
+  0 & 0 & 1 & 0 & $\infty$ & 1 & $\infty$ \\
+  $\frac{\pi}{6}$ & $\frac{1}{2}$ & $\frac{\sqrt{3}}{2}$ & $\frac{\sqrt{3}}{3}$ & $\sqrt{3}$ & $\frac{2\sqrt{3}}{3}$ & 2 \\
+  $\frac{\pi}{4}$ & $\frac{\sqrt{2}}{2}$ & $\frac{\sqrt{2}}{2}$ & 1 & 1 & $\sqrt{2}$ & $\sqrt{2}$ \\
+  $\frac{\pi}{3}$ & $\frac{\sqrt{3}}{2}$ & $\frac{1}{2}$ & $\sqrt{3}$ & $\frac{\sqrt{3}}{3}$ & 2 & $\frac{2\sqrt{3}}{3}$ \\
+  $\frac{\pi}{2}$ & 1 & 0 & $\infty$ & 0 & $\infty$ & 1 \\
+  \hline
+\end{tabular}
+\end{table}
+
+\subsection*{Co-function Identities}
+
+\begin{align}
+  \sin \theta &= \cos \left( \frac{\pi}{2} - \theta \right)\\
+  \cos \theta &= \sin \left( \frac{\pi}{2} - \theta \right) \\
+  \tan \theta &= \cot \left( \frac{\pi}{2} - \theta \right) \\
+  \cot \theta &= \tan \left( \frac{\pi}{2} - \theta \right) \\
+  \sec \theta &= \csc \left( \frac{\pi}{2} - \theta \right) \\
+  \csc \theta &= \sec \left( \frac{\pi}{2} - \theta \right)
+\end{align}
+
+\vspace{1cm}
+\noindent
+\begin{minipage}[t]{0.45\textwidth}
+\subsection*{Reciprocal Identities}
+
+\begin{align}
+  \csc \theta &= \frac{1}{\sin \theta} \\
+  \sec \theta &= \frac{1}{\cos \theta} \\
+  \cot \theta &= \frac{1}{\tan \theta}
+\end{align}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+\subsection*{Pythagorean Identities}
+\begin{align}
+  \sin^2 \theta + \cos^2 \theta &= 1 \\
+  1 + \tan^2 \theta &= \sec^2 \theta \\
+  1 + \cot^2 \theta &= \csc^2 \theta
+\end{align}
+\end{minipage}
+
+\subsection*{Sum and Difference Formulas}
+\begin{align}
+  \sin(A \pm B) &= \sin A \cos B \pm \cos A \sin B \\
+  \cos(A \pm B) &= \cos A \cos B \mp \sin A \sin B \\
+  \tan(A \pm B) &= \frac{\tan A \pm \tan B}{1 \mp \tan A \tan B}
+\end{align}
+
+\subsection*{Double Angle Formulas}
+\begin{align}
+  \sin 2\theta &= 2 \sin \theta \cos \theta \\
+  \cos 2\theta &= \cos^2 \theta - \sin^2 \theta \\
+               &= 2 \cos^2 \theta - 1 \\
+               &= 1 - 2 \sin^2 \theta \\
+  \tan 2\theta &= \frac{2 \tan \theta}{1 - \tan^2 \theta}
+\end{align}
+
+\section{Polynomials}
+
+\subsection*{Quadratic Formula}
+\begin{equation}
+  x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+\end{equation}
+
+\subsection*{Vieta's Formulas}
+For a quadratic equation $ax^2 + bx + c = 0$, the roots $x_1$ and $x_2$ satisfy:
+
+\begin{align}
+  x_1 + x_2 &= -\frac{b}{a} \\
+  x_1 x_2 &= \frac{c}{a}
+\end{align}
+
+\vspace{1cm}
+\noindent
+\begin{minipage}[t]{0.45\textwidth}
+\subsection*{Remainder Theorem}
+If a polynomial $P(x)$ is divided by $x-a$, then the remainder is $P(a)$.
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+\subsection*{Factor Theorem}
+If $P(a) = 0$, then $x-a$ is a factor of $P(x)$.
+\end{minipage}
+
+
+\subsection*{Taylor Series}
+
+The Taylor series of a function $f(x)$ about $x=a$ is:
+
+\begin{align}
+  f(x) &= \sum_{n=0}^{\infty} \frac{f^{(n)}(a)}{n!} (x-a)^n \\[0.5em]
+  f(x) &= f(a) + f'(a)(x-a) + \frac{f''(a)}{2!}(x-a)^2 + \ldots
+\end{align}
+
+
+
+\section{Limits}
+
+\subsection*{Properties of Limits}
+
+\begin{align}
+  \lim_{x \to a} (f(x) + g(x)) &= \lim_{x \to a} f(x) + \lim_{x \to a} g(x) \\
+  \lim_{x \to a} (f(x) - g(x)) &= \lim_{x \to a} f(x) - \lim_{x \to a} g(x) \\
+  \lim_{x \to a} (f(x) g(x)) &= \lim_{x \to a} f(x) \lim_{x \to a} g(x) \\
+  \lim_{x \to a} \left( \frac{f(x)}{g(x)} \right) &= \frac{\lim_{x \to a} f(x)}{\lim_{x \to a} g(x)} \quad \text{if } \lim_{x \to a} g(x) \neq 0
+\end{align}
+
+
+\begin{equation}
+  \lim_{x \to a^{+}} f(x) = \lim_{x \to a^{-}} f(x) = L \implies \lim_{x \to a} f(x) = L
+\end{equation}
+
+
+\vspace{1cm}
+\noindent
+\begin{minipage}[t]{0.45\textwidth}
+\subsection*{L'Hopital's Rule}
+\begin{equation}
+  \lim_{x \to a} \frac{f(x)}{g(x)} = \lim_{x \to a} \frac{f'(x)}{g'(x)}
+\end{equation}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+  \subsection*{Euler's Limit}
+\begin{equation}
+  \lim_{n \to \infty} \left( 1 + \frac{x}{n} \right)^n = e^x
+\end{equation}
+\end{minipage}
+
+\subsection*{Squeeze Theorem}
+If $f(x) \leq g(x) \leq h(x)$ for all $x$ near $a$ (except possibly at $a$) and $\lim_{x \to a} f(x) = \lim_{x \to a} h(x) = L$, then $\lim_{x \to a} g(x) = L$.
+
+\section{Continuity}
+
+\subsection*{Properties of Continuous Functions}
+
+\begin{enumerate}
+  \item $f(x)$ is continuous at $x=a$ if $\lim_{x \to a} f(x) = f(a)$.
+  \item If $f(x)$ and $g(x)$ are continuous at $x=a$, then $f(x) + g(x)$, $f(x) - g(x)$, $f(x)g(x)$, and $\frac{f(x)}{g(x)}$ are continuous at $x=a$.
+  \item If $f(g(x))$ is continuous at $x=a$ and $g(x)$ is continuous at $x=b$, then $f(g(x))$ is continuous at $x=b$.
+\end{enumerate}
+
+
+\section{Derivatives and Integrals}
+
+\subsection*{The Table of Derivatives and Integrals}
+
+\begin{table}[h]
+  \centering
+  % increase table row spacing, adjust to taste
+  \renewcommand{\arraystretch}{2}
+  \begin{tabular}{|c|c|c|}
+    \hline
+    Function & Derivative & Integral \\
+    \hline
+    $f(x)$ & $f'(x)$ & $\int f(x) dx$ \\
+    \hline
+    $x^n$ & $nx^{n-1}$ & $\frac{x^{n+1}}{n+1} + C$ \\
+    $e^x$ & $e^x$ & $e^x + C$ \\
+    $\ln x$ & $\frac{1}{x}$ & $x \ln x - x + C$ \\
+    $\log_a x$ & $\frac{1}{x \ln a}$ & $x \log_a x - x + C$ \\
+    \hline
+    $\sin x$ & $\cos x$ & $-\cos x + C$ \\
+    $\cos x$ & $-\sin x$ & $\sin x + C$ \\
+    $\tan x$ & $\sec^2 x$ & $\log |\sec x| + C$ \\
+    $\cot x$ & $-\csc^2 x$ & $\log |\sin x| + C$ \\
+    $\sec x$ & $\sec x \tan x$ & $\log |\sec x + \tan x| + C$ \\
+    $\csc x$ & $-\csc x \cot x$ & $\log |\csc x - \cot x| + C$ \\
+    \hline
+    $\sin^{-1} x$ & $\frac{1}{\sqrt{1-x^2}}$ & $x \sin^{-1} x + \sqrt{1-x^2} + C$ \\
+    $\cos^{-1} x$ & $-\frac{1}{\sqrt{1-x^2}}$ & $x \cos^{-1} x + \sqrt{1-x^2} + C$ \\
+    $\tan^{-1} x$ & $\frac{1}{1+x^2}$ & $x \tan^{-1} x - \frac{1}{2} \log(1+x^2) + C$ \\
+    $\cot^{-1} x$ & $-\frac{1}{1+x^2}$ & $x \cot^{-1} x + \frac{1}{2} \log(1+x^2) + C$ \\
+    $\sec^{-1} x$ & $\frac{1}{|x| \sqrt{x^2-1}}$ & $x \sec^{-1} x + \sqrt{x^2-1} + C$ \\
+    $\csc^{-1} x$ & $-\frac{1}{|x| \sqrt{x^2-1}}$ & $x \csc^{-1} x + \sqrt{x^2-1} + C$ \\
+    \hline
+    $\sinh x$ & $\cosh x$ & $\cosh x + C$ \\
+    $\cosh x$ & $\sinh x$ & $\sinh x + C$ \\
+    $\tanh x$ & $\sech^2 x$ & $\log |\cosh x| + C$ \\
+    $\coth x$ & $-\csch^2 x$ & $\log |\sinh x| + C$ \\
+    $\sech x$ & $-\sech x \tanh x$ & $2 \tan^{-1}{e^x} + C$ \\
+    $\csch x$ & $-\csch x \coth x$ & $\log |\csch x - \coth x| + C$ \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\subsection*{Integration by Parts}
+\begin{equation}
+  \int u dv = uv - \int v du
+\end{equation}
+
+\subsection*{Integration by Substitution}
+\begin{equation}
+  \int f(g(x)) g'(x) dx = \int f(u) du
+\end{equation}
+
+\subsection*{Partial Fractions}
+
+If $P(x)$ and $Q(x)$ are polynomials and $\deg P < \deg Q$, then
+
+\begin{equation}
+  \frac{P(x)}{Q(x)} = \frac{A}{x-a} + \frac{B}{x-b} + \ldots
+\end{equation}
+
+\subsection*{Improper Integrals}
+
+\begin{equation}
+  \int_{a}^{\infty} f(x) dx = \lim_{b \to \infty} \int_{a}^{b} f(x) dx
+\end{equation}
+
+\begin{equation}
+  \int_{-\infty}^{\infty} f(x) dx = \lim_{a \to -\infty} \lim_{b \to \infty} \int_{a}^{b} f(x) dx
+\end{equation}
+
+\section{Differential Equations}
+
+\subsection*{Variation of Constants}
+
+Given a differential equation of the form $y' + p(x)y = q(x)$.
+
+\begin{enumerate}
+  \item Find the general solution to the homogeneous equation $y' + p(x)y = 0$.
+  \item Assume the solution to the original equation is of the form $y(x) = u(x) y_h(x)$.
+  \item Find $u'(x)$ and substitute into the original equation.
+  \item Solve for $u(x)$ and integrate to find $y(x)$.
+\end{enumerate}
+
+\subsection*{Separation of Variables}
+
+Given a differential equation of the form $\frac{dy}{dx} = f(x)g(y)$.
+
+\begin{enumerate}
+  \item Separate the variables and integrate.
+  \item Solve for $y$.
+\end{enumerate}
+
+\subsection*{Method of Undetermined Coefficients}
+
+Given a differential equation of the form $y'' + ay' + by = f(x)$.
+
+\begin{enumerate}
+  \item Find the general solution to the homogeneous equation $y'' + ay' + by = 0$. (Use the characteristic equation: $r^2 + ar + b = 0$)
+    \begin{enumerate}
+      \item If the roots are real and distinct, the general solution is $y_h(x) = c_1 e^{r_1 x} + c_2 e^{r_2 x}$.
+      \item If the roots are real and repeated, the general solution is $y_h(x) = c_1 e^{r x} + c_2 x e^{r x}$.
+      \item If the roots are complex, the general solution is $y_h(x) = e^{ax} (c_1 \cos bx + c_2 \sin bx)$.
+    \end{enumerate}
+  \item Make an educated guess for the particular solution $y_p(x)$.
+    \begin{enumerate}
+      \item if $f(x) = e^{kx}P_n(x)$, $P_n(x)$ is a polynomial of degree $n$, then $y_p(x) = e^{kx}Q_n(x)$, where $Q_n(x)$ is a polynomial of the same degree. 
+      \item if $f(x) = e^{kx}P_n(x) \sin mx$ or $e^{kx}P_n(x) \cos mx$, then $y_p(x) = e^{kx}Q_n(x) \sin mx + e^{kx}R_n(x) \cos mx$, where $Q_n(x)$ and $R_n(x)$ are polynomials of the same degree as $P_n(x)$.
+      \item Note: if any term in $y_p(x)$ is a solution to the homogeneous equation, multiply by $x$ (or sometimes $x^2$) to get a linearly independent solution.
+    \end{enumerate}
+  \item Substitute $y(x) = y_h(x) + y_p(x)$ into the original equation and solve for the coefficients.
+\end{enumerate}
+
+\section{Exam Strategies}
+
+\begin{mdframed}
+  \textbf{Funky limits}
+
+  \begin{enumerate}
+    \item Try direct substitution.
+    \item Try factoring.
+    \item Try to rationalize the numerator/denominator (multiply by the conjugate).
+    \item Try L'Hopital's Rule.
+    \item Try Squeeze Theorem.
+  \end{enumerate}
+\end{mdframed}
+
+\begin{mdframed}
+  \textbf{sin, cos integrals}
+
+  Given an integral of the form $\int \sin^n x \cos^m x dx$
+
+  \begin{enumerate}
+    \item If $n$ is odd, use $\sin^{2k+1} x = \sin^{2k} x \sin x$ and $\sin^2 x = 1 - \cos^2 x$, $u = \cos x$.
+    \item If $m$ is odd, use $\cos^{2k+1} x = \cos^{2k} x \cos x$ and $\cos^2 x = 1 - \sin^2 x$,  $u = \sin x$.
+    \item if $n$ and $m$ are both odd, use either of the above.
+    \item If $n$ and $m$ are both even, use $\sin^2 x = \frac{1 - \cos 2x}{2}$ and $\cos^2 x = \frac{1 + \cos 2x}{2}$,  $u = \tan x$. Sometimes, also use $\sin 2x = 2 \sin x \cos x$.
+  \end{enumerate}
+\end{mdframed}
+
+\begin{mdframed}
+  \textbf{tan, sec integrals}
+
+  Given an integral of the form $\int \tan^n x \sec^m x dx$
+
+  \begin{enumerate}
+    \item If $n$ is odd, use $\tan^{2k+1} x = \tan^{2k} x \tan x$ and $\tan^2 x = \sec^2 x - 1$, $u = \sec x$.
+    \item If $m$ even, use $\sec^2 x = \tan^2 x + 1$, $u = \tan x$.
+    \item If $n$ odd and $m$ even, use either of the above.
+    \item If $n$ even and $m$ odd, good luck, you're on your own :)
+  \end{enumerate}
+\end{mdframed}
+
+
+\begin{mdframed}
+  \textbf{Funky integrals}
+
+  \begin{enumerate}
+    \item Try substitution.
+    \item Try integration by parts.
+    \item Try partial fractions.
+    \item Try trigonometric substitution.
+    \item Try to simplify the integrand.
+  \end{enumerate}
+\end{mdframed}
+
 
 \end{document}
